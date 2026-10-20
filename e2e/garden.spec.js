@@ -12,6 +12,29 @@ test('adds a bed and opens its planting plan', async ({ page }) => {
   await expect(page.getByLabel('Bed width')).toHaveValue('6');
 });
 
+test('scrolls the bed editor without scrolling the page for a large garden', async ({ page }) => {
+  await page.setViewportSize({ width: 1280, height: 500 });
+  await page.getByLabel('Garden width').fill('55');
+  await page.getByLabel('Garden height').fill('25');
+  await page.getByRole('button', { name: 'Update garden size' }).click();
+  await page.getByRole('button', { name: 'Add bed' }).click();
+  await page.getByLabel('Bed length').fill('25');
+  await page.getByRole('button', { name: '＋ Add plant' }).click();
+
+  const editor = page.getByRole('dialog', { name: 'New bed 4' });
+  await page.mouse.move(1100, 250);
+  await page.mouse.wheel(0, 500);
+
+  await expect.poll(() => editor.evaluate((element) => element.scrollTop)).toBeGreaterThan(0);
+  await expect.poll(() => page.evaluate(() => window.scrollY)).toBe(0);
+  await expect.poll(() => page.locator('.bed-preview-scroll').evaluate((element) => element.scrollHeight))
+    .toBeLessThanOrEqual(await page.locator('.bed-preview-scroll').evaluate((element) => element.clientHeight));
+
+  await page.getByRole('button', { name: 'Place at 1, 25' }).click();
+  await expect(page.getByRole('button', { name: 'New plant footprint 1 by 1 feet' }))
+    .toHaveCSS('grid-row-start', '25');
+});
+
 test('adds a plant and shows its grown size in the bed', async ({ page }) => {
   await page.getByRole('button', { name: /Kitchen garden/ }).click();
   await page.getByRole('button', { name: 'Add plant' }).click();

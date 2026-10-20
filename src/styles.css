@@ -129,7 +129,7 @@ h1 { margin: 8px 0 6px; color: #384a3c; font-family: 'DM Serif Display', serif; 
 .page-footer b { padding-left: 4px; color: #9a9a70; }
 
 .dialog-backdrop { position: fixed; z-index: 5; inset: 0; display: flex; justify-content: flex-end; background: #25312755; }
-.bed-editor { display: flex; flex-direction: column; width: min(480px, 100%); height: 100%; overflow: auto; padding: 22px 28px 18px; background: #fbfaf7; box-shadow: -8px 0 32px #26392c1a; }
+.bed-editor { display: flex; flex-direction: column; width: min(480px, 100%); height: 100%; overflow: auto; overscroll-behavior: contain; padding: 22px 28px 18px; background: #fbfaf7; box-shadow: -8px 0 32px #26392c1a; }
 .editor-top { display: flex; align-items: center; justify-content: space-between; padding-bottom: 19px; border-bottom: 1px solid #ecebe4; }
 .editor-top > div { display: flex; flex-direction: column; gap: 4px; }
 .editor-kicker { font-size: 8px; }
@@ -178,7 +178,7 @@ h1 { margin: 8px 0 6px; color: #384a3c; font-family: 'DM Serif Display', serif; 
 .mature-size-fields .multiply { padding-bottom: 4px; }
 .feet-unit { padding-bottom: 6px; color: #92958c; font-size: 8px; }
 .placement-help { margin: 6px 0 7px; color: #93978d; font-size: 8px; }
-.bed-preview-scroll { overflow: auto; max-height: 240px; padding: 2px 0 7px; }
+.bed-preview-scroll { flex: 0 0 auto; overflow-x: auto; overflow-y: hidden; padding: 2px 0 7px; }
 .bed-preview { display: grid; position: relative; width: max-content; padding: 0; border: 1px solid #dfe2d7; background: #f0f2eb; }
 .bed-preview > button:not(.plant-footprint) { z-index: 0; min-width: 0; min-height: 0; border: 1px solid #e0e3da; background: transparent; cursor: crosshair; }
 .bed-preview > button:not(.plant-footprint):hover { background: #dce8d7; }
